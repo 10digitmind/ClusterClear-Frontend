@@ -3,9 +3,6 @@ import React from "react";
 import  "../Styles/Header.css"; // make sure to create this CSS file for styling
 import logo from "../Assest/newcluster.png"; // replace with your actual logo path
 import { useState } from "react";
-
-
-
 const Header = ({ isLoggedIn = false }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
