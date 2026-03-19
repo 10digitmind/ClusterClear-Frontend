@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 
-const api = process.env.REACT_APP_API_URL
+const api = process.env.REACT_APP_API_URL;
+
 export default function WaitlistPage() {
   const [form, setForm] = useState({
     email: "",
@@ -13,6 +14,7 @@ export default function WaitlistPage() {
 
   const [count, setCount] = useState(127);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // fake growth effect for social proof
@@ -26,21 +28,30 @@ export default function WaitlistPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
   e.preventDefault();
 
+  setLoading(true); // ✅ start loading immediately
+  setSubmitted(false); // reset submitted state
 
   try {
     const res = await axios.post(`${api}/create-waitlist`, form);
-    console.log('res',res)
-    console.log("Saved:", res.data);
-    setSubmitted(true);
+
+    // Show toast
+    toast.success(res?.data?.msg || "Thanks for joining 🚀");
+
+    // Mark as submitted
+    if (res?.data) {
+      setSubmitted(true);
+    }
   } catch (err) {
-  
-    toast(err.response?.data?.msg || "Network error — check backend and CORS");
+    const message =
+      err.response?.data?.msg || "Network error — check backend and CORS";
+    toast.error(message);
+  } finally {
+    setLoading(false); // ✅ stop loading after success or error
   }
 };
-
   return (
     <div className="container">
       {/* Animated DM background */}
@@ -62,11 +73,9 @@ const handleSubmit = async (e) => {
             </p>
 
             {/* Social proof */}
-            <div className="social-proof">
-              {count}+ creators already joined
-            </div>
+            <div className="social-proof">{count}+ creators already joined</div>
 
-            <form onSubmit={handleSubmit}>
+            <form>
               <input
                 type="email"
                 name="email"
@@ -97,7 +106,9 @@ const handleSubmit = async (e) => {
                 <option>No</option>
               </select>
 
-              <button type="submit">Get Early Access</button>
+              <button onClick={handleSubmit} disabled={loading} type="submit">
+                {loading ? "Submitting..." : "Get Early Access"}
+              </button>
             </form>
 
             <span className="note">
