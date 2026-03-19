@@ -5,12 +5,20 @@ import LoginPage from './Component/LoginPage';
 import SignupPage from './Component/SingupPage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WaitlistPage from './Component/WaitListPage';
+import { Toaster, toast } from "sonner";
+
+// in App.jsx
+<Toaster />
+
+// inside your submit
+toast.success("You're on the waitlist 🚀");
+toast.error("Something went wrong");
 
 function App() {
   return (
     <div className="App">
       <Router>
-     
+     <Toaster position='top-center'/>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 
 const api = process.env.REACT_APP_API_URL
 export default function WaitlistPage() {
@@ -27,15 +28,16 @@ export default function WaitlistPage() {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log("api:", api);
+
 
   try {
     const res = await axios.post(`${api}/create-waitlist`, form);
+    console.log('res',res)
     console.log("Saved:", res.data);
     setSubmitted(true);
   } catch (err) {
-    console.error("Error:", err);
-    alert(err.response?.data?.msg || "Network error — check backend and CORS");
+  
+    toast(err.response?.data?.msg || "Network error — check backend and CORS");
   }
 };
 
