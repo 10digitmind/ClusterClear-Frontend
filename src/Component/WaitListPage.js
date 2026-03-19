@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
+const api = process.env.REACT_APP_API_UR
 export default function WaitlistPage() {
   const [form, setForm] = useState({
     email: "",
@@ -23,11 +25,19 @@ export default function WaitlistPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log("Submitting:", form);
+
+  try {
+    const res = await axios.post(`${api}/create-waitlist`, form);
+    console.log("Saved:", res.data);
     setSubmitted(true);
-  };
+  } catch (err) {
+    console.error("Error:", err);
+    alert(err.response?.data?.msg || "Network error — check backend and CORS");
+  }
+};
 
   return (
     <div className="container">
