@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const api = process.env.REACT_APP_API_UR
+const api = process.env.REACT_APP_API_URL
 export default function WaitlistPage() {
   const [form, setForm] = useState({
     email: "",
@@ -27,7 +27,7 @@ export default function WaitlistPage() {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log("Submitting:", form);
+  console.log("api:", api);
 
   try {
     const res = await axios.post(`${api}/create-waitlist`, form);
