@@ -35,7 +35,8 @@ export default function WaitlistPage() {
   setSubmitted(false); // reset submitted state
 
   try {
-    const res = await axios.post(`${api}/create-waitlist`, form);
+    const local='https://cluster-clear.vercel.app/api'
+    const res = await axios.post(`${local}/create-waitlist`, form);
 
     // Show toast
     toast.success(res?.data?.msg || "Thanks for joining 🚀");
