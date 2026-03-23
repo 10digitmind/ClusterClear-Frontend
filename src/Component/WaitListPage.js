@@ -4,6 +4,12 @@ import { toast } from "sonner";
 
 const api = process.env.REACT_APP_API_URL;
 
+
+const getSource = () => {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("source") || "direct";
+};
+
 export default function WaitlistPage() {
   const [form, setForm] = useState({
     email: "",
@@ -28,6 +34,26 @@ export default function WaitlistPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+useEffect(() => {
+  const source = getSource();
+
+  const lastVisit = localStorage.getItem("lastVisit");
+  const now = Date.now();
+
+  if (!lastVisit || now - lastVisit > 30 * 60 * 1000) {
+    fetch(`${api}/track-visit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ source }),
+    });
+
+    localStorage.setItem("lastVisit", now);
+  }
+}, []);
+
+
  const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -35,8 +61,8 @@ export default function WaitlistPage() {
   setSubmitted(false); // reset submitted state
 
   try {
-
-    const res = await axios.post(`${api}/create-waitlist`, form);
+const localHost = 'http://localhost:5000/api'
+    const res = await axios.post(`${localHost}/create-waitlist`, form);
 
     // Show toast
     toast.success(res?.data?.msg || "Thanks for joining 🚀");
