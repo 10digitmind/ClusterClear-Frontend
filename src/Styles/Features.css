@@ -1,8 +1,8 @@
 /* Features Section - Purple Background */
 .section-purple {
-  background: #6355FE; /* Brand purple */
+  background: #ffffff; /* Brand purple */
   padding: 120px 60px;
-  color: white;
+  color: #6355FE;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   height: auto;/* Matches hero skew */
 }

@@ -61,8 +61,8 @@ useEffect(() => {
   setSubmitted(false); // reset submitted state
 
   try {
-const localHost = 'http://localhost:5000/api'
-    const res = await axios.post(`${localHost}/create-waitlist`, form);
+
+    const res = await axios.post(`${api}/create-waitlist`, form);
 
     // Show toast
     toast.success(res?.data?.msg || "Thanks for joining 🚀");

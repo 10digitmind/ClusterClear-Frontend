@@ -1,29 +1,26 @@
 import React from "react";
 import "../Styles/ProblemsAnimation.css";
-import image1 from "../Assest/1.png";
-import image2 from "../Assest/2.png";
-import image3 from "../Assest/3.png";
-import image4 from "../Assest/4.png";
 
-const problemsImages = [
-  image1,
-  image2,
-  image3,
-  image4
-]
-  
+
+const reasons = [
+  "No more free promo requests",
+  "Only paid messages",
+  "Serious brands only",
+  "Stop wasting time in DMs",
+  "Get real opportunities",
+  "Filter out time-wasters",
+];
 
 const ProblemsAnimation = () => {
- return (
-    <section className="problems-loop-section">
-      <div className="problems-loop-wrapper">
-        <div className="problems-loop-track">
-          {[...problemsImages, ...problemsImages].map((img, idx) => (
-            <div className="problems-loop-item" key={idx}>
-              <img src={img} alt={`Problem ${idx + 1}`} />
-            </div>
-          ))}
-        </div>
+  return (
+    <section className="loop-section">
+      <h2 style={{color: "#000000", marginBottom: "30px"}}>Why Creators Love ClusterClear</h2>
+      <div className="loop-track">
+        {[...reasons, ...reasons].map((text, idx) => (
+          <div className="loop-item" key={idx}>
+            {text}
+          </div>
+        ))}
       </div>
     </section>
   );

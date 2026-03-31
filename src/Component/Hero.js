@@ -1,64 +1,122 @@
-import React from "react";
-import "../Styles/Hero.css"; // make sure to create this CSS file for styling
-import {motion} from 'framer-motion'
-import videoSrc from "../Assest/pay (2).mp4"; 
-import videoSrc2 from '../Assest/pay (2) copy.mov'// replace with your actual video path
-import { AiOutlineArrowRight } from "react-icons/ai";
-const Hero = () => {
+import { Link } from "react-router-dom";
+import { ShieldCheck, CreditCard, Users } from "lucide-react";
+
+const Hero= () => {
   return (
-    <section className="hero">
+    <div style={styles.wrapper}>
+      <div style={styles.badge}>Built for serious creators & Brands</div>
 
-      <div className="hero-inner">
+      <h1 style={styles.title}>
+        Stop wasting time on free messages.
+        <br />
+        Get paid to be contacted.
+      </h1>
 
-        <div className="hero-left">
+      <p style={styles.subtitle}>
+        Set a priority fee. Only people who value your time can message you.
+      </p>
 
-          <motion.h1 
-          initial={{ opacity: 0, y: 40 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 3, ease: "easeInOut" }}>
-       Priority access to creators’ DMs. No clutter. Just meaningful connections.
-     
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 3, ease: "easeInOut" }}
-          >
-  Connect only with fans, brands and collaborators who matter. A small <span style={{ textTransform: "uppercase" }}>priority fee</span> guarantees every message is meaningful, boosting opportunities and earnings.</motion.p>
-
-        < motion.button className="hero-btn" 
-       initial={{ opacity: 0, y: 40 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ delay: 0.4, duration: 0.7 }} >
-  Get started<AiOutlineArrowRight className="hero-btn-icon" />
-</motion.button>
-
-        </div>
-
-        <div className="hero-right">
-      <motion.video
-  className="hero-video"
-  autoPlay
-  muted
-  loop
-  playsInline
-  poster="/hero-preview.png"
-  initial={{ opacity: 0, scale: 0.9 }}
-animate={{ opacity: 1, scale: 1 }}
-transition={{ duration: 0.8 }}
->
-  <source src={videoSrc} type="video/mp4" />
-   <source src={videoSrc2} type="video/quicktime" />
-</motion.video>
-
-        </div>
-
+      <div style={styles.buttons}>
+        <Link to="/explore">
+          <button style={styles.primaryBtn}>Explore Creators</button>
+        </Link>
+<Link to="/signup">
+          <button style={styles.secondaryBtn}>Get Started</button>
+        </Link>
       </div>
-      
 
-    </section>
+      <div style={styles.trustBar}>
+        <div style={styles.trustItem}>
+          <ShieldCheck size={16} /> <span>Secure access</span>
+        </div>
+
+        <div style={styles.trustItem}>
+          <CreditCard size={16} /> <span>Paid messages only</span>
+        </div>
+
+        <div style={styles.trustItem}>
+          <Users size={16} /> <span>Built for professionals</span>
+        </div>
+      </div>
+    </div>
   );
+};
+
+const styles = {
+  wrapper: {
+    height: "90vh",
+    background: "white",
+    color: "black",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    padding: "20px",
+  },
+
+  badge: {
+    border: "1px solid #6355FE",
+    color: "#6355FE",
+    padding: "6px 12px",
+    borderRadius: "20px",
+    fontSize: "0.8rem",
+    marginBottom: "20px",
+  },
+
+  title: {
+    fontSize: "2.8rem",
+    maxWidth: "700px",
+    lineHeight: "1.2",
+    fontWeight: "700",
+  },
+
+  subtitle: {
+    marginTop: "15px",
+    fontSize: "1.1rem",
+    color: "#000000",
+    maxWidth: "500px",
+  },
+
+  buttons: {
+    marginTop: "25px",
+    display: "flex",
+    gap: "12px",
+  },
+
+  primaryBtn: {
+    background: "#6355FE",
+    color: "white",
+    border: "none",
+    padding: "12px 22px",
+    cursor: "pointer",
+    fontWeight: "600",
+  },
+
+  secondaryBtn: {
+    background: "transparent",
+    color: "black",
+    border: "1px solid #6355FE",
+    padding: "12px 22px",
+    cursor: "pointer",
+  },
+
+  trustBar: {
+    marginTop: "30px",
+    display: "flex",
+    gap: "20px",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    color: "#aaa",
+    fontSize: "0.9rem",
+  },
+
+  trustItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    padding: "5px 10px",
+  },
 };
 
 export default Hero;

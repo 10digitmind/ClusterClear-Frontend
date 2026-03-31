@@ -1,6 +1,6 @@
 
 import './App.css';
-
+import HomePage from './Component/HomePage';
 import LoginPage from './Component/LoginPage';
 import SignupPage from './Component/SingupPage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -20,7 +20,7 @@ function App() {
       <Router>
      <Toaster position='top-center'/>
         <Routes>
-          <Route path="/" element={<WaitlistPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path ='/waitlist' element={<WaitlistPage />} />
