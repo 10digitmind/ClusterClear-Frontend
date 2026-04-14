@@ -1,0 +1,98 @@
+.wallet-container {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* CARD */
+.wallet-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+/* BALANCE */
+.balance-box h1 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-direction: column;
+  gap: 10PX;
+}
+
+/* INPUT */
+.wallet-card input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.wallet-card button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: #6355FE;
+  color: white;
+  border-radius: 8px;
+}
+
+/* WITHDRAW LIST */
+.withdraw-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+/* STATUS */
+.status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: orange;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.status.approved {
+  background: green;
+  color: white;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.status.failed {
+  background: red;
+  color: white;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+/* ================= DESKTOP ================= */
+@media (min-width: 768px) {
+  .wallet-container {
+    max-width: 600px;
+    margin: auto;
+  }
+}

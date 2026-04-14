@@ -1,0 +1,200 @@
+/* PAGE WRAPPER */
+.onboarding-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f0f0f;
+  color: white;
+  padding: 20px;
+}
+
+/* CARD */
+.onboarding-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  background: #181818;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* TEXT */
+.progress {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.title {
+  font-size: 24px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* IMAGE UPLOAD */
+.image-upload {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 auto 10px auto;
+  position: relative;
+}
+
+.image-upload img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-upload input {
+  display: none;
+}
+
+.placeholder {
+  font-size: 12px;
+  opacity: 0.5;
+  text-align: center;
+  padding: 10px;
+}
+
+/* INPUTS */
+.input,
+.textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #222;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.textarea {
+  min-height: 80px;
+  resize: none;
+}
+
+/* BUTTONS */
+.primary-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+.primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.secondary-btn:hover {
+  color: white;
+}
+/* HEADER WRAPPER */
+.app-header {
+  width: 100%;
+  height: 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid #eaeaea;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* LEFT SIDE */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* LOGO */
+.logo img {
+  height: 50px;
+  object-fit: contain;
+}
+
+/* RIGHT SIDE */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+  padding: 8px 14px;
+  background: #6355FE;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #676fe3;
+  transform: translateY(-1px);
+}
+
+.logout-btn:active {
+  transform: scale(0.98);
+}
+
+.app-footer {
+  background: #ffffff;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #eaeaea;
+}
+
+/* TEXT */
+.app-footer p {
+  font-size: 12px;
+  color: #333;
+  margin: 0;
+}

@@ -40,7 +40,7 @@ const FAQ = () => {
   };
 
   return (
-    <div style={styles.page}>
+    <div id="faq" style={styles.page}>
       <div style={styles.container}>
         <h1 style={styles.title}>Frequently Asked Questions</h1>
         <p style={styles.subtitle}>

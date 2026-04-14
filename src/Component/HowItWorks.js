@@ -4,7 +4,7 @@ import {  CreditCard,  Zap, MessageSquare } from "lucide-react";
 
 const HowItWorks = () => {
   return (
-    <div style={howStyles.container}>
+    <div id="how-it-works" style={howStyles.container}>
       <h2 style={howStyles.title}>How it works</h2>
 
       <div style={howStyles.grid}>

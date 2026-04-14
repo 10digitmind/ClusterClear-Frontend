@@ -1,10 +1,12 @@
-import { FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaTiktok, FaInstagram } from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
 import { FiSend } from "react-icons/fi";
 
 const Contact = () => {
+
+    
   return (
-    <div style={styles.page}>
+    <div id="contact-us" style={styles.page}>
       <div style={styles.container}>
         <h1 style={styles.title}>Contact Us</h1>
         <p style={styles.subtitle}>
@@ -33,7 +35,7 @@ const Contact = () => {
             </div>
 
             <div style={styles.infoItem}>
-              <FaTwitter size={18} />
+              <FaTiktok size={18} />
               <span>@clusterclear</span>
             </div>
 

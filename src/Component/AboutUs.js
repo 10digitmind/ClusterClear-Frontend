@@ -2,7 +2,7 @@ import { Shield, Zap, MessageCircle, Users } from "lucide-react";
 
 const AboutUs = () => {
   return (
-    <div style={styles.wrapper}>
+    <div id="about-us" style={styles.wrapper}>
       <div style={styles.container}>
         <h2 style={styles.title}>About ClusterClear</h2>
 

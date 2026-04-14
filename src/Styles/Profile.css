@@ -1,0 +1,72 @@
+.profile-container {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* CARD */
+.profile-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+/* TOP */
+.profile-top {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+/* INFO */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+/* FORM */
+.edit-form input,
+.profile-card input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.profile-card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #6355FE;
+  color: white;
+  border-radius: 8px;
+}
+
+/* DANGER */
+.danger {
+  border: 1px solid #ff4d4f;
+}
+
+.delete-btn {
+  background: red;
+}
+
+/* ================= DESKTOP ================= */
+@media (min-width: 768px) {
+  .profile-container {
+    max-width: 500px;
+    margin: auto;
+  }
+}

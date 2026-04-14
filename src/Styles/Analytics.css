@@ -1,0 +1,106 @@
+.analytics {
+  width: 100%;
+}
+
+/* Title */
+.analytics-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #000000;
+}
+
+/* Cards Layout */
+.analytics-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.analytics-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #ffffff;
+  color: #111;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect (Stripe-style subtle lift) */
+.analytics-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Left accent bar */
+.analytics-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: #6355FE;
+}
+
+/* Icon */
+.card-icon {
+  background: rgba(99, 85, 254, 0.1);
+  color: #6355FE;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text */
+.card-label {
+  font-size: 13px;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.card-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Optional: make last card (response rate) stand out */
+.analytics-card:last-child {
+  background: #6355FE;
+  color: white;
+}
+
+.analytics-card:last-child .card-label,
+.analytics-card:last-child .card-value {
+  color: white;
+}
+
+.analytics-card:last-child .card-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .analytics-title {
+    font-size: 22px;
+  }
+
+  .analytics-card {
+    padding: 16px;
+  }
+
+  .card-value {
+    font-size: 18px;
+  }
+}

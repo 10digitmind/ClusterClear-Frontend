@@ -1,4 +1,4 @@
-import { FaTwitter, FaInstagram } from "react-icons/fa";
+import {  FaInstagram ,FaTiktok} from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
 import { FiShield } from "react-icons/fi";
 import logo from "../Assest/newcluster.png"; 
@@ -16,12 +16,12 @@ const Footer = () => {
         <div style={styles.links}>
           <a href="#about" style={styles.link}>About</a>
           <a href="#explore" style={styles.link}>Explore</a>
-          <a href="#become-creator" style={styles.link}>FAQ</a>
-          <a href="#support" style={styles.link}>Support</a>
+          <a href="#faq" style={styles.link}>FAQ</a>
+          <a href="#contact-us" style={styles.link}>Support</a>
         </div>
 
         <div style={styles.socials}>
-          <FaTwitter size={18} />
+          <FaTiktok size={18} />
           <FaInstagram size={18} />
           <HiMail size={18} />
         </div>
