@@ -15,7 +15,7 @@ const Footer = () => {
 
         <div style={styles.links}>
           <a href="#about" style={styles.link}>About</a>
-          <a href="#explore" style={styles.link}>Explore</a>
+          <a href="/find-creators" style={styles.link}>Find Creators</a>
           <a href="#faq" style={styles.link}>FAQ</a>
           <a href="#contact-us" style={styles.link}>Support</a>
         </div>

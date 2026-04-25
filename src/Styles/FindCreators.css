@@ -1,0 +1,106 @@
+.fc-container {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fc-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fc-subtext {
+  text-align: center;
+  color: #aaa;
+}
+
+/* EMPTY STATE */
+.fc-empty {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.fc-primary-btn {
+  background: #6355FE;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+}
+
+.fc-notify {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fc-notify input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  width: 200px;
+}
+
+.fc-notify button {
+  padding: 12px 16px;
+  background: #6355FE;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.fc-message {
+  margin-top: 15px;
+  color: #6355FE;
+}
+
+/* GRID */
+.fc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.fc-card {
+  background: #111;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.fc-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.fc-price {
+  color: #6355FE;
+  margin: 8px 0;
+}
+
+.fc-card button {
+  background: #6355FE;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+}

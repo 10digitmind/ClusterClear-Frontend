@@ -1,24 +1,25 @@
 import { useState } from "react";
 import "../Styles/Profile.css";
+import { useSelector } from "react-redux";// replace with your actual logo path
 
 export default function Profile() {
   const [editing, setEditing] = useState(false);
-
-  const [user, setUser] = useState({
+  const user = useSelector((state) => state.auth.user);
+  const [userState, setUserState] = useState({
     username: "johncreator",
     bio: "I reply to fans 🔥",
     price: 2000,
     link: "clusterclear.com/johncreator",
     avatar: "https://i.pravatar.cc/150?img=5",
   });
-
+console.log("User from Redux:", user); // Debugging line
   const [passwords, setPasswords] = useState({
     current: "",
     new: "",
   });
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUserState({ ...userState, [e.target.name]: e.target.value });
   };
 
   const saveProfile = () => {
@@ -33,104 +34,123 @@ export default function Profile() {
     alert("Account deleted (mock)");
   };
 
-  return (
-    <div className="profile-container">
+ return (
+  <div className="profile-container">
 
-      {/* ================= PROFILE CARD ================= */}
-      <div className="profile-card">
+    {/* ================= PROFILE ================= */}
+    <div className="profile-card">
 
-        <div className="profile-top">
-          <img className="profile-avatar" alt="avatar" src={user.avatar} />
+      <div className="profile-header">
+        <img className="profile-avatar" src={user.profilePic} alt="avatar" />
 
-          {editing && (
-            <input type="file" />
-          )}
+        <div className="profile-identity">
+          <h2>@{user.username}</h2>
+          <p>{user.bio || "No bio added"}</p>
         </div>
+      </div>
 
-        {!editing ? (
-          <>
-            <h2>@{user.username}</h2>
-            <p>{user.bio}</p>
-
-            <div className="profile-info">
-              <span>Price: ₦{user.price}</span>
-              <span>Link: {user.link}</span>
+      {!editing ? (
+        <>
+          <div className="profile-info">
+            <div>
+              <label>Price</label>
+              <span>₦{user.priorityFee.toLocaleString()}</span>
             </div>
 
-            <button onClick={() => setEditing(true)}>
-              Edit Profile
-            </button>
-          </>
-        ) : (
-          <div className="edit-form">
+            <div>
+              <label ><a style={{textDecoration:'none'}} href={user?.creatorLink || "https://clusterclear.app"} target="_blank" rel="noopener noreferrer">
+                View My Link
+              </a></label>
+            
+            </div>
+          </div>
+
+          <button className="primary-btn" onClick={() => setEditing(true)}>
+            Edit Profile
+          </button>
+        </>
+      ) : (
+        <div className="edit-form">
+
+          <div className="form-group">
+            <label>Username</label>
             <input
               name="username"
               value={user.username}
               onChange={handleChange}
-              placeholder="Username"
             />
+          </div>
 
-            <input
+          <div className="form-group">
+            <label>Bio</label>
+            <textarea
               name="bio"
               value={user.bio}
               onChange={handleChange}
-              placeholder="Bio"
             />
+          </div>
 
+          <div className="form-group">
+            <label>Price</label>
             <input
               name="price"
-              value={user.price}
+              value={user?.priorityFee}
               onChange={handleChange}
-              placeholder="Price"
             />
-
-            <input
-              name="link"
-              value={user.link}
-              onChange={handleChange}
-              placeholder="Link"
-            />
-
-            <button onClick={saveProfile}>Save</button>
           </div>
-        )}
-      </div>
 
-      {/* ================= PASSWORD ================= */}
-      <div className="profile-card">
-        <h3>Change Password</h3>
+         
 
+          <input type="file" className="file-input" />
+
+          <button className="primary-btn" onClick={saveProfile}>
+            Save Changes
+          </button>
+        </div>
+      )}
+    </div>
+
+    {/* ================= PASSWORD ================= */}
+    <div className="profile-card">
+      <h3>Security</h3>
+
+      <div className="form-group">
+        <label>Current Password</label>
         <input
           type="password"
-          placeholder="Current Password"
           value={passwords.current}
           onChange={(e) =>
             setPasswords({ ...passwords, current: e.target.value })
           }
         />
+      </div>
 
+      <div className="form-group">
+        <label>New Password</label>
         <input
           type="password"
-          placeholder="New Password"
           value={passwords.new}
           onChange={(e) =>
             setPasswords({ ...passwords, new: e.target.value })
           }
         />
-
-        <button onClick={changePassword}>
-          Update Password
-        </button>
       </div>
 
-      {/* ================= DANGER ZONE ================= */}
-      <div className="profile-card danger">
-        <h3>Danger Zone</h3>
-
-        <button className="delete-btn" onClick={deleteAccount}>
-          Delete Account
-        </button>
-      </div>
+      <button className="primary-btn" onClick={changePassword}>
+        Update Password
+      </button>
     </div>
-  );
+
+    {/* ================= DANGER ================= */}
+    <div className="profile-card danger">
+      <h3>Danger Zone</h3>
+      <p>This action cannot be undone.</p>
+
+      <button className="delete-btn" onClick={deleteAccount}>
+        Delete Account
+      </button>
+    </div>
+
+  </div>
+);
 }

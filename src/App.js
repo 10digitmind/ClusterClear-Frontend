@@ -1,5 +1,6 @@
 
 import './App.css';
+import { useEffect } from 'react';
 import HomePage from './Component/HomePage';
 import LoginPage from './Component/LoginPage';
 import SignupPage from './Component/SingupPage';
@@ -8,20 +9,78 @@ import WaitlistPage from './Component/WaitListPage';
 import { Toaster, toast } from "sonner";
 import VerifyEmail from './Component/VerifyEmail';
 import CreateProfile from './Component/CreateProfile';
-import Dashboard from './Component/Dashbord';
+import Dashboard from './Component/Dashboard';
 import CreatorPage from './Component/CreatorPage';
 import OnboardingStepOne from './Component/OnboardingStepOne';
 import PublicRoute from './Component/Protected/PublicRoute';
 import ProtectedRoute from './Component/Protected/ProtectedRoute';
+import ForgotPassword from './Component/Forgotpassword';
+import ResetPassword from './Component/ResetPassword';
+import FindCreators from './Component/FindCreators';
+import { getCurrentUser } from './Redux/Asycthunk';
+import { useDispatch } from 'react-redux';
 
+const token = localStorage.getItem("token");
 // in App.jsx
 <Toaster />
+
+const updateActivity = () => {
+  localStorage.setItem("lastActivity", Date.now());
+};
 
 // inside your submit
 toast.success("You're on the waitlist 🚀");
 toast.error("Something went wrong");
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(token) {
+ dispatch(getCurrentUser());
+ 
+    }
+
+
+  }, [dispatch]);
+
+useEffect(() => {
+  const events = ["mousemove", "keydown", "click", "scroll"];
+
+  events.forEach((event) =>
+    window.addEventListener(event, updateActivity)
+  );
+
+  return () => {
+    events.forEach((event) =>
+      window.removeEventListener(event, updateActivity)
+    );
+  };
+}, []);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    const lastActivity = localStorage.getItem("lastActivity");
+
+    if (!lastActivity) return;
+
+    const now = Date.now();
+    const diff = now - Number(lastActivity);
+
+    const HOURS_24 = 24 * 60 * 60 * 1000;
+
+    if (diff > HOURS_24) {
+      console.log("User inactive → logging out");
+
+      localStorage.clear();
+      window.location.href = "/login";
+    }
+  
+  }, 60000); // check every 1 minute
+
+  return () => clearInterval(interval);
+}, []);
+
   return (
     <div className="App">
       <Router>
@@ -62,6 +121,9 @@ function App() {
           <Route path="/verify-email/" element={<VerifyEmail />} />
 
           <Route path="/creator/:username" element={<CreatorPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+                 <Route path="/find-creators" element={<FindCreators />} />
 
           {/* PROTECTED ROUTES */}
           <Route
@@ -83,7 +145,7 @@ function App() {
           />
 
           <Route
-            path="/create-creator-profile"
+            path="/onboarding-step-two"
             element={
               <ProtectedRoute>
                 <CreateProfile />

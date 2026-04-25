@@ -19,7 +19,7 @@ export default function AppHeader({ user, onLogout }) {
       {/* CENTER */}
       <div className="header-center">
         <p className="welcome-text">
-          👋 Welcome, <span>{user?.name || "User"}</span>
+          👋 Welcome back, <span>{user?.name }</span>
         </p>
       </div>
 

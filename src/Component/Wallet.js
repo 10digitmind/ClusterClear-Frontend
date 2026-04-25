@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../Styles/Wallet.css";
+import { useSelector } from "react-redux";
 
 export default function Wallet() {
   const [editBank, setEditBank] = useState(false);
+  const {user} = useSelector((state) => state.auth);
 
   const [wallet, setWallet] = useState({
     balance: 125000,
@@ -66,19 +68,19 @@ export default function Wallet() {
         <h2>Wallet</h2>
 
         <div className="balance-box">
-          <h1>₦{wallet.balance.toLocaleString()}</h1>
+          <h1>₦{user?.wallet.availableBalance.toLocaleString()}</h1>
           <p>Available Balance</p>
         </div>
 
         <div className="stats">
           <div>
             <p>Total Earned</p>
-            <strong>₦{wallet.totalEarned.toLocaleString()}</strong>
+            <strong>₦{user?.wallet.totalEarned.toLocaleString()}</strong>
           </div>
 
           <div>
             <p>Priority Fee</p>
-            <strong>₦{wallet.priorityFee.toLocaleString()}</strong>
+            <strong>₦{user?.priorityFee.toLocaleString()}</strong>
           </div>
         </div>
       </div>
@@ -105,12 +107,12 @@ export default function Wallet() {
 
         {!editBank ? (
           <>
-            <p>{wallet.bank.bankName}</p>
-            <p>{wallet.bank.accountNumber}</p>
-            <p>{wallet.bank.accountName}</p>
+            <p>{user?.bankDetails.bankName === null ? "Bank Name not provided" : user?.bankDetails.bankName}</p>
+            <p>{user?.bankDetails.accountNumber === null ? "Account Number not provided" : user?.bankDetails.accountNumber}</p>
+            <p>{user?.bankDetails.accountName === null ? "Account Name not provided" : user?.bankDetails.accountName}</p>
 
             <button onClick={() => setEditBank(true)}>
-              Edit Bank
+             {user?.bankDetails.bankName === null ? "Add Bank Details" : "Edit Bank Details"}
             </button>
           </>
         ) : (

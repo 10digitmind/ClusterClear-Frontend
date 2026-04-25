@@ -8,6 +8,7 @@ import {
   FiCheckCircle,
   FiClock,
   FiTrendingUp,
+  FiHash,
 } from "react-icons/fi";
 
 export default function Analytics({ data }) {
@@ -17,6 +18,7 @@ export default function Analytics({ data }) {
     totalResponded = 0,
     averageResponseTime = 0,
     responseRate = 0,
+    totalEaerned = 2000,
   } = data || {};
 
   return (
@@ -24,6 +26,8 @@ export default function Analytics({ data }) {
       <h1 className="analytics-title">Analytics</h1>
 
       {/* Cards */}
+
+      
       <div className="analytics-cards">
         <div className="analytics-card">
           <div className="card-icon"><FiMousePointer /></div>
@@ -32,7 +36,13 @@ export default function Analytics({ data }) {
             <h2 className="card-value">{linkClicks}</h2>
           </div>
         </div>
-
+   <div className="analytics-card">
+          <div className="card-icon"><FiHash /></div>
+          <div>
+            <p className="card-label">Total Earned</p>
+            <h2 className="card-value">₦{totalEaerned.toLocaleString()}</h2>
+          </div>
+        </div>
         <div className="analytics-card">
           <div className="card-icon"><FiSend /></div>
           <div>
@@ -56,6 +66,9 @@ export default function Analytics({ data }) {
             <h2 className="card-value">{averageResponseTime} min</h2>
           </div>
         </div>
+
+
+      
 
         <div className="analytics-card">
           <div className="card-icon"><FiTrendingUp /></div>

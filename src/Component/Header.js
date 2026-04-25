@@ -12,7 +12,9 @@ const Header = ({ isLoggedIn = false }) => {
     <header className="header">
       {/* Logo */}
       <div className="logo">
-        <img src={logo} alt="ClusterClear Logo" />
+        <a href="/">
+          <img src={logo} alt="ClusterClear Logo" />
+        </a>
       </div>
 
       {/* If user NOT logged in show navigation */}

@@ -17,8 +17,8 @@ const Hero= () => {
       </p>
 
       <div style={styles.buttons}>
-        <Link to="/explore">
-          <button style={styles.primaryBtn}>Explore Creators</button>
+        <Link to="/find-creators">
+          <button style={styles.primaryBtn}>Find Creators</button>
         </Link>
 <Link to="/signup">
           <button style={styles.secondaryBtn}>Get Started</button>

@@ -1,98 +1,130 @@
 .wallet-container {
-  padding: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
+  background: #f8f9fc;
+  min-height: 100vh;
 }
 
 /* CARD */
 .wallet-card {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  border: 1px solid #eee;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 /* BALANCE */
-.balance-box h1 {
-  font-size: 28px;
-  margin: 0;
+.balance-box {
+  background: linear-gradient(135deg, #6355FE, #8a7bff);
+  padding: 20px;
+  border-radius: 14px;
+  color: white;
+  margin-top: 10px;
 }
 
+.balance-box h1 {
+  font-size: 32px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.balance-box p {
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+/* STATS */
 .stats {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
-  flex-direction: column;
-  gap: 10PX;
+  margin-top: 18px;
+}
+
+.stats div p {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.stats div strong {
+  font-size: 16px;
+  color: #111;
 }
 
 /* INPUT */
 .wallet-card input {
   width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  font-size: 14px;
+  transition: all 0.2s ease;
 }
 
+.wallet-card input:focus {
+  outline: none;
+  border-color: #6355FE;
+  box-shadow: 0 0 0 3px rgba(99, 85, 254, 0.1);
+}
+
+/* BUTTON */
 .wallet-card button {
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 12px;
+  padding: 12px;
   width: 100%;
   border: none;
-  background: #6355FE;
+  background: #111;
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.wallet-card button:hover {
+  transform: translateY(-1px);
+  background: #000;
 }
 
 /* WITHDRAW LIST */
 .withdraw-item {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
+  align-items: center;
+  padding: 10px 0;
   border-bottom: 1px solid #f2f2f2;
 }
 
 /* STATUS */
 .status {
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 8px;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 999px;
   text-transform: capitalize;
+  font-weight: 500;
 }
 
 .status.pending {
-  background: orange;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
+  background: rgba(255, 165, 0, 0.1);
+  color: orange;
 }
 
 .status.approved {
-  background: green;
-  color: white;
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
+  background: rgba(0, 128, 0, 0.1);
+  color: green;
 }
 
 .status.failed {
-  background: red;
-  color: white;
-   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
+  background: rgba(255, 0, 0, 0.1);
+  color: red;
 }
 
-/* ================= DESKTOP ================= */
+/* DESKTOP */
 @media (min-width: 768px) {
   .wallet-container {
-    max-width: 600px;
+    max-width: 500px;
     margin: auto;
   }
 }

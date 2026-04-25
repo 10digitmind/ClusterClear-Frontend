@@ -1,78 +1,99 @@
 import { useState } from "react";
-import axios from "axios";
 import "../Styles/CreateProfile.css";
-import logo from "../Assest/newcluster.png"; // replace with your actual logo path
+import { useSelector } from "react-redux";// replace with your actual logo path
+import AppHeader from "./AppHeader";
+import { useDispatch } from "react-redux";
+
+import { stepTwo } from "../Redux/Asycthunk";
+import { toast } from "sonner";
 
 export default function CreateProfile({ userType = "creator" }) {
-  const [price, setPrice] = useState("");
+  const [priorityFee, setPriorityFee] = useState("");
   const [bio, setBio] = useState("");
 
-  const [image, setImage] = useState(null);
+  const [profilePic, setProfilePic] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
+  const user = useSelector((state) => state.auth.user);
+const dispatch = useDispatch();
+
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
+  const file = e.target.files[0];
 
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
-  };
+  if (!file) return;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const MAX_SIZE = 2 * 1024 * 1024; // 2MB
 
-    try {
-      const formData = new FormData();
-
-      if (image) formData.append("profilePic", image);
-      if (bio && userType === "creator") formData.append("bio", bio);
-      if (price && userType === "creator") formData.append("priorityFee", price);
-  
-
-      await axios.patch("/api/onboarding/step-two", formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      window.location.href = "/dashboard";
-    } catch (err) {
-      alert("Failed to complete profile");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLogout = () => {
-    console.log("Logging out...");
+  if (file.size > MAX_SIZE) {
+    toast.error(`✔ Image selected ${Math.round(file.size / 1024 / 1024 * 100) / 100}MB
+⚠ Max image allowed : 2MB`);
+    e.target.value = null; // reset input
+    return;
   }
 
+  setProfilePic(file);
+  setPreview(URL.createObjectURL(file));
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    if (!bio || !priorityFee) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("bio", bio);
+    formData.append("priorityFee", priorityFee);
+
+    if (profilePic) {
+      formData.append("profilePic", profilePic);
+    }
+
+    const result = await dispatch(stepTwo(formData)).unwrap();
+
+    if (result.message === "Onboarding completed") {
+      window.location.href = "/dashboard";
+    }
+
+  } catch (err) {
+    toast.error(err||"Failed to complete profile");
+ 
+  } finally {
+    setLoading(false);
+  }
+};
+ const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  }
+
+   if(user?.onboardingStage ==='none') {
+
+    window.location.href = "/onboarding-step-one";
+    return null
+  }else if(user?.onboardingStage === 'completed') {
+    window.location.href = "/dashboard";
+    return null
+   }
 
   return (
+
+    
     <>
-
-       <header className="app-header">
-      <div className="header-left">
-        <div className="logo">
-               <img src={logo} alt="ClusterClear Logo" />
-             </div>
-      </div>
-
-      <div className="header-right">
-        <button className="logout-btn" onClick={handleLogout}>
-          Log out
-        </button>
-      </div>
-    </header>
+ <AppHeader user={{ name: user?.username }} onLogout={handleLogout} />
 
     <div className="onboarding-container">
       <div className="onboarding-card">
-        <p className="progress">Step 2 of 2</p>
-
-        <h2 className="title">Turn attention into income</h2>
+        <p className="progress">Step 2 of 2 </p>
+      
+        <h2 className="title">{user?.role === "creator" ? "Turn attention into income" : "Complete your profile"} </h2>
 
         <p className="subtitle">
           Set up your profile so people know who they’re connecting with.
@@ -95,7 +116,7 @@ export default function CreateProfile({ userType = "creator" }) {
          
 
           {/* CREATOR ONLY */}
-          {userType === "creator" && (
+          {user?.role === "creator" && (
             <>
               <textarea
                 placeholder="Short bio (optional)"
@@ -107,8 +128,8 @@ export default function CreateProfile({ userType = "creator" }) {
               <input
                 type="number"
                 placeholder="Set price (£)"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                value={priorityFee}
+                onChange={(e) => setPriorityFee(e.target.value)}
                 className="input"
               />
             </>
@@ -118,13 +139,7 @@ export default function CreateProfile({ userType = "creator" }) {
             {loading ? "Saving..." : "Continue"}
           </button>
 
-          <button
-            type="button"
-            className="secondary-btn"
-            onClick={() => (window.location.href = "/dashboard")}
-          >
-            Do this later
-          </button>
+        
         </form>
       </div>
     </div>

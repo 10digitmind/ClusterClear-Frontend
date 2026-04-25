@@ -4,11 +4,11 @@ import axios from "axios";
 const api = process.env.REACT_APP_API_URL;
 
 
-
 export default function VerifyEmail() {
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(false);
   const [message, setMessage] = useState("");
+ const [invalidVerification, setInvalidVerification] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
 const token = urlParams.get("token");
@@ -32,6 +32,18 @@ const resendEmail = async () => {
   }
 };
 
+
+ // auto polling (lightweight)
+  useEffect(() => {
+    if (!token || invalidVerification) return;
+
+    checkVerification();
+
+    const interval = setInterval(checkVerification, 5000);
+
+    return () => clearInterval(interval);
+  }, );
+
 const checkVerification = async () => {
   setChecking(true);
 
@@ -39,12 +51,15 @@ const checkVerification = async () => {
     const res = await axios.get(`${api}/verify-email/${token}`);
 
     const status = res.data.status;
+    
+
+    localStorage.setItem("userOnboardingStage", res.data.user); // cleanup
 
     if (status === "verified") {
       setMessage("Email verified! Redirecting...");
       setTimeout(() => {
         window.location.href = "/onboarding-step-one";
-      }, 2000);
+      }, 500);
     }
 
   } catch (err) {
@@ -59,6 +74,7 @@ const checkVerification = async () => {
     
     else if (status === "invalid") {
       setMessage("Invalid or expired link.");
+     setInvalidVerification(true); // ✅
     }
 
     else {
@@ -68,16 +84,7 @@ const checkVerification = async () => {
     setChecking(false);
   }
 };
-  // auto polling (lightweight)
-  useEffect(() => {
-    if (!token) return;
-
-    checkVerification();
-
-    const interval = setInterval(checkVerification, 5000);
-
-    return () => clearInterval(interval);
-  }, );
+ 
 
   return (
    <div className="verify-container">

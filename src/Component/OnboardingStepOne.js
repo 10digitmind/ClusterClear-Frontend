@@ -1,8 +1,12 @@
 import { useState,useEffect } from "react";
-import axios from "axios";
-import AppHeader from "./AppHeader";
+import { useDispatch } from "react-redux";
 
-const api = process.env.REACT_APP_API_URL;
+import { stepOne } from "../Redux/Asycthunk";
+import AppHeader from "./AppHeader";
+import api from "./Api";
+
+
+
 
 export default function OnboardingStepOne() {
   const [username, setUsername] = useState("");
@@ -16,6 +20,9 @@ const [message, setMessage] = useState("");
   const userEmail  = localStorage.getItem("email") || ""
   const name = userEmail.split("@")[0] || "User";
 
+
+
+const dispatch = useDispatch();
   // username check
 useEffect(() => {
   if (!username || username.length < 3) {
@@ -29,8 +36,8 @@ useEffect(() => {
       setStatus("checking");
       setMessage("");
 
-      const res = await axios.get(
-        `${api}/check-username/${username}`
+      const res = await api.get(
+        `/check-username/${username}`
       );
 
       setStatus(res.data.available);
@@ -54,36 +61,35 @@ useEffect(() => {
     localStorage.clear();
     window.location.href = "/login";
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
 
-    try {
-      const res = await axios.patch(
-        `${api}/onboarding-step-one`,
-        {
-          username,
-          fullName,
-          userType,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
 
-      if (res.status === 200) {
-        window.location.href = "/create-creator-profile";
-      }
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    } catch (err) {
-      console.log(err)
+ 
+  try {
+const res = await dispatch(
+  stepOne({
+    username,
+    fullName,
+    userType,
+  })
+);
 
-    } finally {
-      setLoading(false);
+    console.log("Response:", res);
+
+    if (res.payload.message === 'Step one completed') {
+      window.location.href = "/onboarding-step-two";
     }
-  };
+
+  } catch (err) {
+    console.log(err.message, err.response?.data);
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
         <>
@@ -161,13 +167,20 @@ useEffect(() => {
 
           </div>
 
-          <button
-            className="primary-btn"
-            disabled={loading || !username || !userType || status === false}
-            onClick={handleSubmit}
-          >
-            {loading ? "Loading..." : "Continue"}
-          </button>
+        <button
+  className="primary-btn"
+  disabled={
+    loading ||
+    !username ||
+    username.length < 3 ||
+    !userType ||
+    status === "checking" ||
+    status === false
+  }
+  type="submit"
+>
+  {loading ? "Loading..." : "Continue"}
+</button>
         </form>
        
       </div>
