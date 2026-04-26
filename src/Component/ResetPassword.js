@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import "../Styles/ResetPassword.css"; // create this CSS file for styling
 import api from '../Component/Api'
 
