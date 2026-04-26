@@ -224,7 +224,7 @@ const canSave =
               </div>
             </div>
 
-            <button className="primary-btn" onClick={startEditing}>
+            <button className="primary-btn-profile" onClick={startEditing}>
               Edit Profile
             </button>
           </>
@@ -258,11 +258,18 @@ const canSave =
             <div className="form-group">
               <label>Bio</label>
 
-              <textarea
-                name="bio"
-                value={draft.bio}
-                onChange={handleChange}
-              />
+            <textarea
+    name="bio"
+    value={draft.bio}
+    onChange={handleChange}
+    maxLength={500}
+    placeholder="Write something about yourself..."
+  />
+
+  <small>
+    {draft.bio?.length || 0}/500
+  </small>
+              
             </div>
 
             {/* PRICE */}
@@ -279,7 +286,7 @@ const canSave =
             <input type="file" onChange={handleImageChange}  className="file-input" />
 
            <button
-  className="primary-btn"
+  className="primary-btn-profile"
   onClick={saveProfile}
   disabled={!canSave}
 >
@@ -333,7 +340,7 @@ const canSave =
   </button>
 
   {/* SUBMIT */}
-  <button className="primary-btn" onClick={changePassword}>
+  <button className="primary-btn-profile" onClick={changePassword}>
     Update Password
   </button>
 </div>

@@ -122,10 +122,12 @@ const handleSubmit = async (e) => {
             <>
               <textarea
                 placeholder="Short bio (optional)"
-                value={bio}
+                value={user?.bio || bio}
                 onChange={(e) => setBio(e.target.value)}
                 className="textarea"
+                    maxLength={500}
               />
+              <small className="char-count">{bio.length}/500</small>
 
               <input
                 type="number"

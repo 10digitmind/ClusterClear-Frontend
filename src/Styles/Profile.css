@@ -36,6 +36,7 @@
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  border: 2px solid #6355fe;
 }
 
 .profile-identity h2 {
@@ -45,6 +46,15 @@
 .profile-identity p {
   font-size: 13px;
   color: #777;
+
+  width:  250px;
+  line-height: 1.4;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-align: start;
+  overflow: hidden;
 }
 
 /* INFO */
@@ -105,7 +115,7 @@ input:focus {
 }
 
 /* BUTTON */
-.primary-btn {
+.primary-btn-profile {
   margin-top: 14px;
   width: 100%;
   padding: 12px;
@@ -117,7 +127,7 @@ input:focus {
   cursor: pointer;
 }
 
-.primary-btn:hover {
+.primary-btn-profile:hover {
   transform: translateY(-1px);
 }
 
@@ -146,6 +156,10 @@ input:focus {
     max-width: 500px;
     margin: auto;
   }
+
+
+
+  
 }
 
 .profile-info a{
