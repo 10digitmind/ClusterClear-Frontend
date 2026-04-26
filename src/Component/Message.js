@@ -111,7 +111,12 @@ const formatTime = (timestamp) => {
 
     setMessage("");
   };
+const handleTextareaChange = (e) => {
+  setMessage(e.target.value);
 
+  e.target.style.height = "auto";
+  e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+};
   return (
     <div className="messages-container">
 
@@ -212,11 +217,13 @@ const formatTime = (timestamp) => {
 
           {/* INPUT */}
           <div className="chat-input">
-            <input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type message..."
-            />
+           <textarea
+  className="chat-textarea"
+  value={message}
+  onChange={handleTextareaChange}
+  placeholder="Type a message..."
+  rows={1}
+/>
 
             <button onClick={sendMessage}>
               Send
