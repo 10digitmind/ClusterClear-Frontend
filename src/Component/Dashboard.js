@@ -29,6 +29,7 @@ const accountPages = [
 
 export default function SidebarDashboard() {
   const [active, setActive] = useState("Wallet");
+const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
   const activePage =
@@ -57,73 +58,102 @@ export default function SidebarDashboard() {
     return null;
   }
 
-  return (
-    <div className="layout">
-      <aside className="sidebar">
-        {/* TOP */}
-        <div className="sidebar-top">
-          <div className="brand">Cluster Clear</div>
+ return (
+  <div className="layout">
 
-          <button className="copy-btn" onClick={copyLink}>
-            <Copy size={16} /> Copy Link
+    {/* MOBILE OVERLAY */}
+    {menuOpen && (
+      <div
+        className="overlay"
+        onClick={() => setMenuOpen(false)}
+      />
+    )}
+
+    {/* SIDEBAR */}
+    <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
+
+      <div className="sidebar-top">
+        <div className="brand">Cluster Clear</div>
+
+        <button className="copy-btn" onClick={copyLink}>
+          <Copy size={16} /> Copy Link
+        </button>
+      </div>
+
+      {/* MAIN NAV */}
+      <div className="nav-section">
+        <p className="nav-title">Overview</p>
+
+        {mainPages.map((page) => (
+          <button
+            key={page.name}
+            className={`nav-item ${
+              active === page.name ? "active" : ""
+            }`}
+            onClick={() => {
+              setActive(page.name);
+              setMenuOpen(false);
+            }}
+          >
+            {page.icon}
+            <span>{page.name}</span>
           </button>
-        </div>
+        ))}
+      </div>
 
-        {/* MAIN NAV */}
-        <div className="nav-section">
-          <p className="nav-title">Overview</p>
+      {/* ACCOUNT */}
+      <div className="nav-section">
+        <p className="nav-title">Account</p>
 
-          {mainPages.map((page) => (
-            <button
-              key={page.name}
-              className={`nav-item ${
-                active === page.name ? "active" : ""
-              }`}
-              onClick={() => setActive(page.name)}
-            >
-              {page.icon}
-              <span>{page.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* ACCOUNT */}
-        <div className="nav-section">
-          <p className="nav-title">Account</p>
-
-          {accountPages.map((page) => (
-            <button
-              key={page.name}
-              className={`nav-item ${
-                active === page.name ? "active" : ""
-              }`}
-              onClick={() => setActive(page.name)}
-            >
-              {page.icon}
-              <span>{page.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* FOOTER */}
-        <div className="sidebar-footer">
-          <div className="user-box">
-            <FiUser />
-            <span>{user?.username}</span>
-          </div>
-
-          <button className="logout-btn" onClick={logout}>
-            <FiArrowDownRight /> Logout
+        {accountPages.map((page) => (
+          <button
+            key={page.name}
+            className={`nav-item ${
+              active === page.name ? "active" : ""
+            }`}
+            onClick={() => {
+              setActive(page.name);
+              setMenuOpen(false);
+            }}
+          >
+            {page.icon}
+            <span>{page.name}</span>
           </button>
-        </div>
-      </aside>
+        ))}
+      </div>
 
-      {/* MAIN */}
-      <main className="main">
-        <div className="page-wrapper">
-          <ActivePage />
+      {/* FOOTER */}
+      <div className="sidebar-footer">
+        <div className="user-box">
+          <FiUser />
+          <span>{user?.username}</span>
         </div>
-      </main>
-    </div>
-  );
+
+        <button className="logout-btn" onClick={logout}>
+          <FiArrowDownRight /> Logout
+        </button>
+      </div>
+    </aside>
+
+    {/* MAIN */}
+    <main className="main">
+
+      {/* MOBILE TOPBAR */}
+      <div className="mobile-topbar">
+        <button
+          className="menu-btn"
+          onClick={() => setMenuOpen(true)}
+        >
+          ☰
+        </button>
+
+        <span>{active}</span>
+      </div>
+
+      <div className="page-wrapper">
+        <ActivePage />
+      </div>
+    </main>
+  </div>
+);
 }
