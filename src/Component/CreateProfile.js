@@ -19,7 +19,9 @@ export default function CreateProfile({ userType = "creator" }) {
   const user = useSelector((state) => state.auth.user);
 const dispatch = useDispatch();
 
-  const handleImageChange = (e) => {
+
+
+const handleImageChange = (e) => {
   const file = e.target.files[0];
 
   if (!file) return;

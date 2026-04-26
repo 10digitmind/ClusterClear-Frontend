@@ -2,12 +2,12 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../Styles/ResetPassword.css"; // create this CSS file for styling
-const api = process.env.REACT_APP_API_URL || "http://localhost:5000"; // fallback to localhost
+import api from '../Component/Api'
+
 
 export default function ResetPassword() {
   const { token } = useParams();
 
-  console.log("Reset token:", token); // Debugging log
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -33,10 +33,11 @@ const [showPassword, setShowPassword] = useState(false);
       setLoading(true);
       setMessage("");
 
-      await axios.post(`${api}/reset-password/${token}`, {
+    const res =  await api.post(`/reset-password/${token}`, {
         password,
       });
 
+      console.log("Reset response:", res.data);
       setMessage("Password reset successful. Redirecting...");
 
       setTimeout(() => {
@@ -44,6 +45,7 @@ const [showPassword, setShowPassword] = useState(false);
       }, 2000);
 
     } catch (err) {
+      console.error(err?.message || err);
       const status = err.response?.data?.status;
 
       if (status === "invalid" || status === "expired") {

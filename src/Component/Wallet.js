@@ -1,21 +1,23 @@
 import { useState } from "react";
 import "../Styles/Wallet.css";
 import { useSelector } from "react-redux";
+import api from "../Component/Api";
+import { toast } from "sonner";
 
 export default function Wallet() {
   const [editBank, setEditBank] = useState(false);
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
+  const [bankName, setBankName] = useState(user?.bankDetails.bankName || "");
+  const [accountNumber, setAccountNumber] = useState(
+    user?.bankDetails.accountNumber || "",
+  );
+  const [accountName, setAccountName] = useState(
+    user?.bankDetails.accountName || "",
+  );
 
   const [wallet, setWallet] = useState({
-    balance: 125000,
-    priorityFee: 5000,
-    totalEarned: 300000,
-
-    bank: {
-      bankName: "GTBank",
-      accountNumber: "0123456789",
-      accountName: "John Creator",
-    },
+   
 
     withdrawals: [
       {
@@ -60,9 +62,35 @@ export default function Wallet() {
     setWithdrawAmount("");
   };
 
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+
+      if (!bankName || !accountNumber || !accountName) {
+        toast.error("All fields are required");
+        return;
+      }
+      if (accountNumber.length < 10) {
+        toast.error("Account number must be  10 digit ");
+        return;
+      }
+
+      const res = await api.patch("/update-bank-details", {
+        bankName,
+        accountName,
+        accountNumber,
+      });
+
+      toast.success(res.data.message);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="wallet-container">
-
       {/* ================= TOP BALANCE ================= */}
       <div className="wallet-card">
         <h2>Wallet</h2>
@@ -85,7 +113,67 @@ export default function Wallet() {
         </div>
       </div>
 
-      {/* ================= WITHDRAW ================= */}
+    
+
+      {/* ================= BANK DETAILS ================= */}
+      <div className="wallet-card">
+        <h3>Bank Details</h3>
+
+        {!editBank ? (
+          <>
+            <p>
+              {user?.bankDetails.bankName === null
+                ? "Bank Name not provided"
+                : user?.bankDetails.bankName}
+            </p>
+            <p>
+              {user?.bankDetails.accountNumber === null
+                ? "Account Number not provided"
+                : user?.bankDetails.accountNumber}
+            </p>
+            <p>
+              {user?.bankDetails.accountName === null
+                ? "Account Name not provided"
+                : user?.bankDetails.accountName}
+            </p>
+
+            <button onClick={() => setEditBank(true)}>
+              {user?.bankDetails.bankName === null
+                ? "Add Bank Details"
+                : "Edit Bank Details"}
+            </button>
+          </>
+        ) : (
+          <div className="bank-edit">
+            <input
+              onChange={(e) => setBankName(e.target.value)}
+              placeholder="Bank Name"
+              value={user?.bankDetails.bankName|| ''}
+            />
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength={10}
+              placeholder="Account Number"
+              value={user?.bankDetails.accountNumber || ""}
+              onChange={(e) =>
+                setAccountNumber(e.target.value.replace(/\D/g, ""))
+              }
+            />
+            <input
+              onChange={(e) => setAccountName(e.target.value)}
+              placeholder="Account Name"
+              value={user?.bankDetails.accountName || ""}
+            />
+
+            <button onClick={handleSave} disabled={loading}>
+              {loading ? "Saving..." : "Save"}
+            </button>
+          </div>
+        )}
+      </div>
+  {/* ================= WITHDRAW ================= */}
       <div className="wallet-card">
         <h3>Withdraw Funds</h3>
 
@@ -96,38 +184,8 @@ export default function Wallet() {
           onChange={(e) => setWithdrawAmount(e.target.value)}
         />
 
-        <button onClick={requestWithdraw}>
-          Withdraw
-        </button>
+        <button onClick={requestWithdraw}>Withdraw</button>
       </div>
-
-      {/* ================= BANK DETAILS ================= */}
-      <div className="wallet-card">
-        <h3>Bank Details</h3>
-
-        {!editBank ? (
-          <>
-            <p>{user?.bankDetails.bankName === null ? "Bank Name not provided" : user?.bankDetails.bankName}</p>
-            <p>{user?.bankDetails.accountNumber === null ? "Account Number not provided" : user?.bankDetails.accountNumber}</p>
-            <p>{user?.bankDetails.accountName === null ? "Account Name not provided" : user?.bankDetails.accountName}</p>
-
-            <button onClick={() => setEditBank(true)}>
-             {user?.bankDetails.bankName === null ? "Add Bank Details" : "Edit Bank Details"}
-            </button>
-          </>
-        ) : (
-          <div className="bank-edit">
-            <input placeholder="Bank Name" />
-            <input placeholder="Account Number" />
-            <input placeholder="Account Name" />
-
-            <button onClick={() => setEditBank(false)}>
-              Save
-            </button>
-          </div>
-        )}
-      </div>
-
       {/* ================= WITHDRAWAL HISTORY ================= */}
       <div className="wallet-card">
         <h3>Withdrawal History</h3>
@@ -139,9 +197,7 @@ export default function Wallet() {
               <p>{w.date}</p>
             </div>
 
-            <span className={`status ${w.status}`}>
-              {w.status}
-            </span>
+            <span className={`status ${w.status}`}>{w.status}</span>
           </div>
         ))}
       </div>

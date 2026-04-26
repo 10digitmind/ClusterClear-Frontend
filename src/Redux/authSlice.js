@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser,getCurrentUser,stepOne ,stepTwo} from "./Asycthunk";
+import { loginUser,getCurrentUser,stepOne ,stepTwo,updateCreatorProfile} from "./Asycthunk";
 
 const initialState = {
   user: null,
@@ -100,7 +100,20 @@ const authSlice = createSlice({
 
 
 
-
+ .addCase(updateCreatorProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateCreatorProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.creatorProfile;
+        state.message = action.payload.message;
+      })
+      .addCase(updateCreatorProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      
     // Handle async thunks here if needed
   }
 });

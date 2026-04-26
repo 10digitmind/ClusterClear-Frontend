@@ -79,3 +79,18 @@ export const stepTwo = createAsyncThunk(
     }
   }
 );
+
+
+export const updateCreatorProfile = createAsyncThunk(
+  "updateCreatorProfile",
+  async (formData, thunkAPI) => {
+    try {
+      const res = await api.patch("/update-creator-profile", formData);
+      return res.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
+    }
+  }
+);
