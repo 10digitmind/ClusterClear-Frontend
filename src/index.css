@@ -19,6 +19,7 @@ code {
   margin: 0;
 }
 
-input:focus, textarea:focus {
-  font-size: 16px;
+input, textarea {
+  font-size: 16px; /* REQUIRED for mobile */
 }
+

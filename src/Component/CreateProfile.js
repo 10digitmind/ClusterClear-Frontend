@@ -44,14 +44,14 @@ const handleSubmit = async (e) => {
   setLoading(true);
 
   try {
-    if (!bio || !priorityFee) {
+    if ( !priorityFee) {
       toast.error("Please fill in all required fields");
       return;
     }
 
     const formData = new FormData();
 
-    formData.append("bio", bio);
+    formData.append("bio", user?.bio || bio);
     formData.append("priorityFee", priorityFee);
 
     if (profilePic) {
@@ -127,7 +127,7 @@ const handleSubmit = async (e) => {
                 className="textarea"
                     maxLength={500}
               />
-              <small className="char-count">{bio.length}/500</small>
+              <small className="char-count">{user?.bio ? user.bio.length : bio.length}/500</small>
 
               <input
                 type="number"

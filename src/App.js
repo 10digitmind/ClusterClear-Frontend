@@ -36,13 +36,22 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(token) {
- dispatch(getCurrentUser());
- 
+  const checkUser = async () => {
+    if (!token) return;
+
+    try {
+await dispatch(getCurrentUser()).unwrap();
+    } catch (err) {
+    
+      if (err === "User not found") {
+        localStorage.clear();
+        window.location.href = "/login";
+      }
     }
+  };
 
-
-  }, [dispatch]);
+  checkUser();
+}, [dispatch,]);
 
 useEffect(() => {
   const events = ["mousemove", "keydown", "click", "scroll"];

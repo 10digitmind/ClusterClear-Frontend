@@ -148,7 +148,7 @@ export default function Wallet() {
             <input
               onChange={(e) => setBankName(e.target.value)}
               placeholder="Bank Name"
-              value={user?.bankDetails.bankName|| ''}
+              value={user?.bankDetails.bankName|| bankName}
             />
             <input
               type="text"
@@ -156,7 +156,7 @@ export default function Wallet() {
               pattern="[0-9]*"
               maxLength={10}
               placeholder="Account Number"
-              value={user?.bankDetails.accountNumber || ""}
+              value={user?.bankDetails.accountNumber || accountNumber}
               onChange={(e) =>
                 setAccountNumber(e.target.value.replace(/\D/g, ""))
               }
@@ -164,7 +164,7 @@ export default function Wallet() {
             <input
               onChange={(e) => setAccountName(e.target.value)}
               placeholder="Account Name"
-              value={user?.bankDetails.accountName || ""}
+              value={user?.bankDetails.accountName || accountName}
             />
 
             <button onClick={handleSave} disabled={loading}>

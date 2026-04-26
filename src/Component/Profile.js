@@ -260,7 +260,7 @@ const canSave =
 
             <textarea
     name="bio"
-    value={draft.bio}
+    value={user?.bio || draft.bio}
     onChange={handleChange}
     maxLength={500}
     placeholder="Write something about yourself..."
