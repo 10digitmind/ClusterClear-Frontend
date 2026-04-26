@@ -1,14 +1,17 @@
 import { useState } from "react";
 import "../Styles/Wallet.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../Component/Api";
 import { toast } from "sonner";
+import { getCurrentUser } from "../Redux/Asycthunk";
+import { useEffect } from "react";
 
 export default function Wallet() {
   const [editBank, setEditBank] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [bankName, setBankName] = useState(user?.bankDetails.bankName || "");
+  const dispatch = useDispatch();
   const [accountNumber, setAccountNumber] = useState(
     user?.bankDetails.accountNumber || "",
   );
@@ -80,8 +83,12 @@ export default function Wallet() {
         accountName,
         accountNumber,
       });
+      await dispatch((getCurrentUser()));
 
       toast.success(res.data.message);
+      setTimeout(() => {
+        setEditBank(false);
+      }, 2000);
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed");
     } finally {
@@ -89,6 +96,13 @@ export default function Wallet() {
     }
   };
 
+  useEffect(() => {
+  if (user?.bankDetails) {
+    setBankName(user.bankDetails.bankName || "");
+    setAccountNumber(user.bankDetails.accountNumber || "");
+    setAccountName(user.bankDetails.accountName || "");
+  }
+}, [user]);
   return (
     <div className="wallet-container">
       {/* ================= TOP BALANCE ================= */}
@@ -148,7 +162,7 @@ export default function Wallet() {
             <input
               onChange={(e) => setBankName(e.target.value)}
               placeholder="Bank Name"
-              value={user?.bankDetails.bankName|| bankName}
+              value={ bankName}
             />
             <input
               type="text"
@@ -156,7 +170,7 @@ export default function Wallet() {
               pattern="[0-9]*"
               maxLength={10}
               placeholder="Account Number"
-              value={user?.bankDetails.accountNumber || accountNumber}
+              value={ accountNumber}
               onChange={(e) =>
                 setAccountNumber(e.target.value.replace(/\D/g, ""))
               }
@@ -164,7 +178,7 @@ export default function Wallet() {
             <input
               onChange={(e) => setAccountName(e.target.value)}
               placeholder="Account Name"
-              value={user?.bankDetails.accountName || accountName}
+              value={ accountName}
             />
 
             <button onClick={handleSave} disabled={loading}>
