@@ -27,7 +27,7 @@ export default function AppHeader({ user, onLogout }) {
       <div className="header-right">
 
         {/* AVATAR */}
-        <div className="avatar">
+        <div className="avatar-header">
           {user?.profilePic ? (
             <img src={user.profilePic} alt="avatar" />
           ) : (

@@ -8,6 +8,7 @@
   justify-content: space-between;
   padding: 0 16px;
   border-bottom: 1px solid #eee;
+  
 }
 
 /* LEFT */
@@ -24,6 +25,8 @@
 .header-center {
   flex: 1;
   text-align: center;
+  background-color: red;
+
 }
 
 .welcome-text {
@@ -44,9 +47,9 @@
 }
 
 /* AVATAR */
-.avatar {
-  width: 36px;
-  height: 36px;
+.avatar-header {
+  width: 85px;
+  height: 50px;
   border-radius: 50%;
   background: #6355ff;
   color: white;
@@ -56,6 +59,7 @@
   font-size: 14px;
   font-weight: bold;
   overflow: hidden;
+  object-fit: contain;
 }
 
 .avatar img {
