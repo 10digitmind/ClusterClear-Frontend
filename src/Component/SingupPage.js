@@ -50,7 +50,7 @@ const checks = {
       }
 
       // Optional redirect
-      window.location.href = "/verify-email";
+      window.location.href = '/verify-email-info';
 
     } catch (err) {
       console.error("Signup error:", err.message, err.response?.data);

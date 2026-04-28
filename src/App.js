@@ -7,7 +7,7 @@ import SignupPage from './Component/SingupPage';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WaitlistPage from './Component/WaitListPage';
 import { Toaster, toast } from "sonner";
-import VerifyEmail from './Component/VerifyEmail';
+
 import CreateProfile from './Component/CreateProfile';
 import Dashboard from './Component/Dashboard';
 import CreatorPage from './Component/CreatorPage';
@@ -19,6 +19,8 @@ import ResetPassword from './Component/ResetPassword';
 import FindCreators from './Component/FindCreators';
 import { getCurrentUser } from './Redux/Asycthunk';
 import { useDispatch } from 'react-redux';
+import VerifyEmailInfo from './Component/verifyEmailInfo';
+import VerifyEmailToken from './Component/verifyEmailToken';
 
 const token = localStorage.getItem("token");
 // in App.jsx
@@ -128,7 +130,8 @@ useEffect(() => {
 
           <Route path="/waitlist" element={<WaitlistPage />} />
 
-          <Route path="/verify-email/" element={<VerifyEmail />} />
+          <Route path="/verify-email-info/" element={<VerifyEmailInfo />} />
+       <Route path="/verify-email/:token" element={<VerifyEmailToken />} />
 
           <Route path="/creator/:username" element={<CreatorPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
