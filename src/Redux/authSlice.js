@@ -4,7 +4,7 @@ import { loginUser,getCurrentUser,stepOne ,stepTwo,updateCreatorProfile} from ".
 const initialState = {
   user: null,
   token: localStorage.getItem("token") || null,
-  loading: false,
+  loading: true,
   message: null,
 };
 

@@ -9,7 +9,9 @@ import { useEffect } from "react";
 export default function Wallet() {
   const [editBank, setEditBank] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const [loading, setLoading] = useState(false);
+    const { loading } = useSelector((state) => state.auth);
+
+ 
   const [bankName, setBankName] = useState(user?.bankDetails.bankName || "");
   const dispatch = useDispatch();
   const [accountNumber, setAccountNumber] = useState(
@@ -67,8 +69,7 @@ export default function Wallet() {
 
   const handleSave = async () => {
     try {
-      setLoading(true);
-
+  
       if (!bankName || !accountNumber || !accountName) {
         toast.error("All fields are required");
         return;
@@ -91,8 +92,7 @@ export default function Wallet() {
       }, 2000);
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed");
-    } finally {
-      setLoading(false);
+    } finally {;
     }
   };
 
@@ -110,19 +110,19 @@ export default function Wallet() {
         <h2>Wallet</h2>
 
         <div className="balance-box">
-          <h1>₦{user?.wallet.availableBalance.toLocaleString()}</h1>
+         {loading?<h1>Loading Balance..</h1>:<h1>₦{user?.wallet.availableBalance.toLocaleString()}</h1>} 
           <p>Available Balance</p>
         </div>
 
         <div className="stats">
           <div>
             <p>Total Earned</p>
-            <strong>₦{user?.wallet.totalEarned.toLocaleString()}</strong>
+            {loading?<strong>laoding...</strong> :<strong>₦{user?.wallet.totalEarned.toLocaleString()}</strong>}
           </div>
 
           <div>
             <p>Priority Fee</p>
-            <strong>₦{user?.priorityFee.toLocaleString()}</strong>
+           {loading?<strong>laoding...</strong> :<strong>₦{user?.priorityFee.toLocaleString()}</strong>}
           </div>
         </div>
       </div>
