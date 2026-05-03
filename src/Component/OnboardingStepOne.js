@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { stepOne } from "../Redux/Asycthunk";
 import AppHeader from "./AppHeader";
 import api from "./Api";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,6 +16,7 @@ export default function OnboardingStepOne() {
   const [userType, setUserType] = useState("");
   const [loading, setLoading] = useState(false);
 const [status, setStatus] = useState(null);
+const user = useSelector((state) => state.auth.user);
 // null | "checking" | true | false
 const [message, setMessage] = useState("");
 
@@ -90,6 +93,14 @@ const res = await dispatch(
     setLoading(false);
   }
 };
+
+const navigate = useNavigate();
+
+useEffect(() => {
+  if (user && !user.isEmailVerified) {
+    navigate("/verify-email-info");
+  }
+}, [navigate, user]);
 
   return (
         <>

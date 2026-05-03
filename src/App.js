@@ -21,6 +21,7 @@ import { getCurrentUser } from './Redux/Asycthunk';
 import { useDispatch } from 'react-redux';
 import VerifyEmailInfo from './Component/verifyEmailInfo';
 import VerifyEmailToken from './Component/verifyEmailToken';
+import PaymentSuccess from './Component/PaymentSuccess';
 
 const token = localStorage.getItem("token");
 // in App.jsx
@@ -125,6 +126,15 @@ useEffect(() => {
               <PublicRoute>
                 <SignupPage />
               </PublicRoute>
+            }
+          />
+
+            <Route
+            path="/payments"
+            element={
+      
+                <PaymentSuccess />
+            
             }
           />
 

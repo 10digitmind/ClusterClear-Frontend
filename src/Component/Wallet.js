@@ -98,9 +98,9 @@ export default function Wallet() {
 
   useEffect(() => {
   if (user?.bankDetails) {
-    setBankName(user.bankDetails.bankName || "");
-    setAccountNumber(user.bankDetails.accountNumber || "");
-    setAccountName(user.bankDetails.accountName || "");
+    setBankName(user?.bankDetails.bankName || "");
+    setAccountNumber(user?.bankDetails.accountNumber || "");
+    setAccountName(user?.bankDetails.accountName || "");
   }
 }, [user]);
   return (
@@ -117,6 +117,11 @@ export default function Wallet() {
         <div className="stats">
           <div>
             <p>Total Earned</p>
+            {loading?<strong>laoding...</strong> :<strong>₦{user?.wallet.pendingBalance.toLocaleString()}</strong>}
+          </div>
+
+           <div>
+            <p>Pending </p>
             {loading?<strong>laoding...</strong> :<strong>₦{user?.wallet.totalEarned.toLocaleString()}</strong>}
           </div>
 

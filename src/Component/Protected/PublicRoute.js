@@ -8,6 +8,5 @@ export default function PublicRoute({ children }) {
   if (token || user) {
     return <Navigate to="/dashboard" replace />;
   }
-
   return children;
 }

@@ -50,6 +50,11 @@ localStorage.setItem("lastActivity", Date.now());
       return;
     }
 
+    if(!result?.user?.isEmailVerifed){
+ window.location.href = "/verify-email-info";
+      return;
+    }
+
     window.location.href = "/dashboard";
   } catch (err) {
     toast.error(

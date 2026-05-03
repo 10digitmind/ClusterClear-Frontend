@@ -35,7 +35,7 @@ export default function VerifyEmailInfo() {
         <h1>Check your email</h1>
 
         <p className="subtitle">
-          We sent a verification link to:
+          Please verify your email we sent a verification link to:
         </p>
 
         <p className="email">{email}</p>
