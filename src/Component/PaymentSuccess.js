@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate, useParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { BsCheckCircleFill, BsShieldLockFill, BsClockHistory } from "react-icons/bs";
 import api from "../Component/Api";
 import '../Styles/paymentSuccess.css'
@@ -7,20 +7,23 @@ import '../Styles/paymentSuccess.css'
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const {reference} = useParams() || searchParams.get('reference');
-console.log(reference)
+  const reference = searchParams.get('trxref');
+
   const [status, setStatus] = useState("verifying"); // verifying | success | failed
+  const [creatorName, setCreatorName]= useState('')
 
 
   useEffect(() => {
     const verifyPayment = async () => {
       try {
         const res = await api.get(`/verify-payment/${reference}`);
-console.log(res)
-        if (res.data?.status === "success") {
+  console.log(res.data)
+        if (res.data?.success) {
+      
           setStatus("success");
+          setCreatorName(res.data.creatorName)
 
-        } else {
+        } else  {
           setStatus("failed");
         }
       } catch (err) {
@@ -54,7 +57,7 @@ console.log(res)
                 <BsShieldLockFill /> Secure transaction completed
               </p>
               <p>
-                <BsClockHistory /> Priority message sent instantly
+                <BsClockHistory /> Priority message sent instantly to {creatorName}
               </p>
             </div>
 
