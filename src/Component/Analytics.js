@@ -1,6 +1,5 @@
-
-
 import '../Styles/Analytics.css';
+import { useSelector } from 'react-redux';
 
 import {
   FiMousePointer,
@@ -10,8 +9,10 @@ import {
   FiTrendingUp,
   FiHash,
 } from "react-icons/fi";
+import { useEffect } from 'react';
 
 export default function Analytics({ data }) {
+    const user = useSelector((state) => state.auth.user);
   const {
     linkClicks = 0,
     totalRequests = 0,
@@ -21,8 +22,10 @@ export default function Analytics({ data }) {
     totalEaerned = 2000,
   } = data || {};
 
+ 
+
   return (
-    <div className="analytics">
+<div className="analytics">
       <h1 className="analytics-title">Analytics</h1>
 
       {/* Cards */}
@@ -33,21 +36,21 @@ export default function Analytics({ data }) {
           <div className="card-icon"><FiMousePointer /></div>
           <div>
             <p className="card-label">Link Clicks</p>
-            <h2 className="card-value">{linkClicks}</h2>
+            <h2 className="card-value">{user?.linkClicks}</h2>
           </div>
         </div>
    <div className="analytics-card">
           <div className="card-icon"><FiHash /></div>
           <div>
             <p className="card-label">Total Earned</p>
-            <h2 className="card-value">₦{totalEaerned.toLocaleString()}</h2>
+            <h2 className="card-value">₦{user?.wallet.totalEarned.toLocaleString()}</h2>
           </div>
         </div>
         <div className="analytics-card">
           <div className="card-icon"><FiSend /></div>
           <div>
             <p className="card-label">Total Requests</p>
-            <h2 className="card-value">{totalRequests}</h2>
+            <h2 className="card-value">{user?.responses.totalRequests}</h2>
           </div>
         </div>
 

@@ -225,7 +225,7 @@
 }
 
 /* FORM */
-.modal-box input,
+.modal-box input, select,
 .modal-box textarea {
   width: 100%;
   padding: 14px;

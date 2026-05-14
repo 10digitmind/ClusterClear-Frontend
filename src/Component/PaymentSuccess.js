@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { BsCheckCircleFill, BsShieldLockFill, BsClockHistory } from "react-icons/bs";
+import { BsCheckCircleFill, BsShieldLockFill, BsClockHistory,Bs0CircleFill } from "react-icons/bs";
 import api from "../Component/Api";
 import '../Styles/paymentSuccess.css'
 
@@ -17,7 +17,7 @@ export default function PaymentSuccess() {
     const verifyPayment = async () => {
       try {
         const res = await api.get(`/verify-payment/${reference}`);
-  console.log(res.data)
+
         if (res.data?.success) {
       
           setStatus("success");
@@ -58,6 +58,9 @@ export default function PaymentSuccess() {
               </p>
               <p>
                 <BsClockHistory /> Priority message sent instantly to {creatorName}
+              </p>
+                 <p>
+                <Bs0CircleFill />  If no response within 24 hours, you’re eligible for a refund
               </p>
             </div>
 

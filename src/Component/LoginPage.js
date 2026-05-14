@@ -37,7 +37,7 @@ localStorage.setItem("lastActivity", Date.now());
      toast.success("Login successful!");
 
      // Redirect based on onboarding stage
-    const stage = result.user.onboardingStage;
+    const stage = result?.user?.onboardingStage;
    
 
     if (stage === "none") {
@@ -50,7 +50,7 @@ localStorage.setItem("lastActivity", Date.now());
       return;
     }
 
-    if(!result?.user?.isEmailVerifed){
+    if(!result?.user?.isEmailVerified){
  window.location.href = "/verify-email-info";
       return;
     }

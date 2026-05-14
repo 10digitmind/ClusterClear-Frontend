@@ -128,3 +128,36 @@
     margin: auto;
   }
 }
+.tooltip {
+  position: relative;
+  margin-left: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #6355FF;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 240px;
+  background: #111;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+  border-radius: 8px;
+
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  opacity: 0;
+  transition: 0.2s ease;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

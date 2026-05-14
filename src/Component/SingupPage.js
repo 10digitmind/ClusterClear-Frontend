@@ -5,16 +5,20 @@ import logo from "../Assest/newcluster.png";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { useSearchParams } from "react-router-dom";
 
 const api = process.env.REACT_APP_API_URL;
 
 export default function SignupPage() {
-  const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+const [searchParams] = useSearchParams();
 
+const buyerEmail = searchParams.get("email");
+const [email, setEmail] = useState(buyerEmail || "");
 
 const checks = {
   length: password.length >= 8,

@@ -12,39 +12,16 @@ export default function Wallet() {
     const { loading } = useSelector((state) => state.auth);
 
  
-  const [bankName, setBankName] = useState(user?.bankDetails.bankName || "");
+  const [bankName, setBankName] = useState(user?.bankDetails?.bankName || "");
   const dispatch = useDispatch();
   const [accountNumber, setAccountNumber] = useState(
-    user?.bankDetails.accountNumber || "",
+    user?.bankDetails?.accountNumber || "",
   );
   const [accountName, setAccountName] = useState(
-    user?.bankDetails.accountName || "",
+    user?.bankDetails?.accountName || "",
   );
 
-  const [wallet, setWallet] = useState({
-   
-
-    withdrawals: [
-      {
-        id: 1,
-        amount: 50000,
-        status: "pending",
-        date: "2026-04-01",
-      },
-      {
-        id: 2,
-        amount: 30000,
-        status: "approved",
-        date: "2026-03-20",
-      },
-      {
-        id: 3,
-        amount: 20000,
-        status: "failed",
-        date: "2026-03-10",
-      },
-    ],
-  });
+ 
 
   const [withdrawAmount, setWithdrawAmount] = useState("");
 
@@ -58,11 +35,6 @@ export default function Wallet() {
       date: new Date().toISOString().split("T")[0],
     };
 
-    setWallet((prev) => ({
-      ...prev,
-      withdrawals: [newRequest, ...prev.withdrawals],
-      balance: prev.balance - newRequest.amount,
-    }));
 
     setWithdrawAmount("");
   };
@@ -98,66 +70,129 @@ export default function Wallet() {
 
   useEffect(() => {
   if (user?.bankDetails) {
-    setBankName(user?.bankDetails.bankName || "");
-    setAccountNumber(user?.bankDetails.accountNumber || "");
-    setAccountName(user?.bankDetails.accountName || "");
+    setBankName(user?.bankDetails?.bankName || "");
+    setAccountNumber(user?.bankDetails?.accountNumber || "");
+    setAccountName(user?.bankDetails?.accountName || "");
   }
 }, [user]);
   return (
     <div className="wallet-container">
       {/* ================= TOP BALANCE ================= */}
-      <div className="wallet-card">
-        <h2>Wallet</h2>
+     <div className="wallet-card">
+  <h2>
+    Wallet
+  </h2>
 
-        <div className="balance-box">
-         {loading?<h1>Loading Balance..</h1>:<h1>₦{user?.wallet.availableBalance.toLocaleString()}</h1>} 
-          <p>Available Balance</p>
-        </div>
+  {/* Available Balance */}
+  <div className="balance-box">
+    {loading ? (
+      <h1>Loading Balance..</h1>
+    ) : (
+      <h1>₦{user?.wallet?.availableBalance?.toLocaleString()}</h1>
+    )}
 
-        <div className="stats">
-          <div>
-            <p>Total Earned</p>
-            {loading?<strong>laoding...</strong> :<strong>₦{user?.wallet.pendingBalance.toLocaleString()}</strong>}
-          </div>
+    <p>
+      Available Balance
+      <span className="tooltip">
+        ⓘ
+        <span className="tooltip-text">
+          Money you can withdraw immediately.
+        </span>
+      </span>
+    </p>
+  </div>
 
-           <div>
-            <p>Pending </p>
-            {loading?<strong>laoding...</strong> :<strong>₦{user?.wallet.totalEarned.toLocaleString()}</strong>}
-          </div>
+  {/* Stats */}
+  <div className="stats">
 
-          <div>
-            <p>Priority Fee</p>
-           {loading?<strong>laoding...</strong> :<strong>₦{user?.priorityFee.toLocaleString()}</strong>}
-          </div>
-        </div>
-      </div>
+    {/* Total Earned */}
+    <div>
+      <p>
+        Total Earned
+        <span className="tooltip">
+          ⓘ
+          <span className="tooltip-text">
+            Total money you’ve earned from all completed transactions.
+          </span>
+        </span>
+      </p>
+
+      {loading ? (
+        <strong>loading...</strong>
+      ) : (
+        <strong>₦{user?.wallet?.totalEarned?.toLocaleString()}</strong>
+      )}
+    </div>
+
+    {/* Pending */}
+    <div>
+      <p>
+        Pending
+        <span className="tooltip">
+          ⓘ
+          <span className="tooltip-text">
+            Money from recent transactions that will be added after confirmation.
+          </span>
+        </span>
+      </p>
+
+      {loading ? (
+        <strong>loading...</strong>
+      ) : (
+        <strong style={{ color: "grey" }}>
+          ₦{user?.wallet?.pendingBalance?.toLocaleString()}
+        </strong>
+      )}
+    </div>
+
+    {/* Priority Fee */}
+    <div>
+      <p>
+        Priority Fee
+        <span className="tooltip">
+          ⓘ
+          <span className="tooltip-text">
+            Extra fee users pay to make their message appear at the top and get faster responses.
+          </span>
+        </span>
+      </p>
+
+      {loading ? (
+        <strong>loading...</strong>
+      ) : (
+        <strong>₦{user?.priorityFee?.toLocaleString()}</strong>
+      )}
+    </div>
+
+  </div>
+</div>
 
     
 
       {/* ================= BANK DETAILS ================= */}
-      <div className="wallet-card">
+      {loading?<p>Loading bank details...</p>:<div className="wallet-card">
         <h3>Bank Details</h3>
 
         {!editBank ? (
           <>
             <p>
-              {user?.bankDetails.bankName === null
+              {user?.bankDetails?.bankName === null
                 ? "Bank Name not provided"
-                : user?.bankDetails.bankName}
+                : user?.bankDetails?.bankName}
             </p>
             <p>
-              {user?.bankDetails.accountNumber === null
+              {user?.bankDetails?.accountNumber === null
                 ? "Account Number not provided"
-                : user?.bankDetails.accountNumber}
+                : user?.bankDetails?.accountNumber}
             </p>
             <p>
-              {user?.bankDetails.accountName === null
+              {user?.bankDetails?.accountName === null
                 ? "Account Name not provided"
-                : user?.bankDetails.accountName}
+                : user?.bankDetails?.accountName}
             </p>
 
             <button onClick={() => setEditBank(true)}>
-              {user?.bankDetails.bankName === null
+              {user?.bankDetails?.bankName === null
                 ? "Add Bank Details"
                 : "Edit Bank Details"}
             </button>
@@ -191,7 +226,7 @@ export default function Wallet() {
             </button>
           </div>
         )}
-      </div>
+      </div>}
   {/* ================= WITHDRAW ================= */}
       <div className="wallet-card">
         <h3>Withdraw Funds</h3>
@@ -206,7 +241,7 @@ export default function Wallet() {
         <button onClick={requestWithdraw}>Withdraw</button>
       </div>
       {/* ================= WITHDRAWAL HISTORY ================= */}
-      <div className="wallet-card">
+      {/* <div className="wallet-card">
         <h3>Withdrawal History</h3>
 
         {wallet.withdrawals.map((w) => (
@@ -219,7 +254,7 @@ export default function Wallet() {
             <span className={`status ${w.status}`}>{w.status}</span>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
