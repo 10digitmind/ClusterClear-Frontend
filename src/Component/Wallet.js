@@ -25,19 +25,18 @@ export default function Wallet() {
 
   const [withdrawAmount, setWithdrawAmount] = useState("");
 
-  const requestWithdraw = () => {
-    if (!withdrawAmount) return;
+  // const requestWithdraw = () => {
+  //   if (!withdrawAmount) return;
 
-    const newRequest = {
-      id: Date.now(),
-      amount: Number(withdrawAmount),
-      status: "pending",
-      date: new Date().toISOString().split("T")[0],
-    };
+  //   const newRequest = {
+  //     id: Date.now(),
+  //     amount: Number(withdrawAmount),
+  //     status: "pending",
+  //     date: new Date().toISOString().split("T")[0],
+  //   };
 
-
-    setWithdrawAmount("");
-  };
+  //   setWithdrawAmount("");
+  // };
 
   const handleSave = async () => {
     try {
@@ -238,7 +237,7 @@ export default function Wallet() {
           onChange={(e) => setWithdrawAmount(e.target.value)}
         />
 
-        <button onClick={requestWithdraw}>Withdraw</button>
+        <button >Withdraw</button>
       </div>
       {/* ================= WITHDRAWAL HISTORY ================= */}
       {/* <div className="wallet-card">
