@@ -9,18 +9,11 @@ import {
   FiTrendingUp,
   FiHash,
 } from "react-icons/fi";
-import { useEffect } from 'react';
+
 
 export default function Analytics({ data }) {
     const user = useSelector((state) => state.auth.user);
-  const {
-    linkClicks = 0,
-    totalRequests = 0,
-    totalResponded = 0,
-    averageResponseTime = 0,
-    responseRate = 0,
-    totalEaerned = 2000,
-  } = data || {};
+  
 
  
 
@@ -58,7 +51,7 @@ export default function Analytics({ data }) {
           <div className="card-icon"><FiCheckCircle /></div>
           <div>
             <p className="card-label">Responded</p>
-            <h2 className="card-value">{totalResponded}</h2>
+            <h2 className="card-value">{user?.responses?.responded}</h2>
           </div>
         </div>
 
@@ -66,7 +59,7 @@ export default function Analytics({ data }) {
           <div className="card-icon"><FiClock /></div>
           <div>
             <p className="card-label">Avg Response Time</p>
-            <h2 className="card-value">{averageResponseTime} min</h2>
+            <h2 className="card-value">{user?.responses?.totalResponseTime} min</h2>
           </div>
         </div>
 
@@ -77,7 +70,7 @@ export default function Analytics({ data }) {
           <div className="card-icon"><FiTrendingUp /></div>
           <div>
             <p className="card-label">Response Rate</p>
-            <h2 className="card-value">{responseRate}%</h2>
+            <h2 className="card-value">{user?.responses?.totalResponseTime}%</h2>
           </div>
         </div>
       </div>
